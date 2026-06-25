@@ -1,0 +1,213 @@
+<html>
+	<head>
+		<title>BMI Calculator</title>
+		
+		<style>
+			*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Cambria, serif;
+}
+
+body{
+    background:linear-gradient(135deg,#dbeafe,#eff6ff,#e0f2fe);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+h1{
+    font-size:2rem;
+    color:#1d4ed8;
+    margin-bottom:25px;
+    text-align:center;
+    text-shadow:2px 2px 8px rgba(0,0,0,0.15);
+}
+
+.fc{
+    width:100%;
+    max-width:450px;
+    background:#fff;
+    padding:35px 30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.fc:hover{
+    transform:translateY(-5px);
+}
+
+input[type="number"]{
+    width:100%;
+    padding:14px;
+    font-size:1.1rem;
+    border:2px solid #cbd5e1;
+    border-radius:10px;
+    outline:none;
+    transition:0.3s;
+}
+
+input[type="number"]:focus{
+    border-color:#2563eb;
+    box-shadow:0 0 10px rgba(37,99,235,0.3);
+}
+
+.btn{
+    width:100%;
+    padding:14px;
+    font-size:1.1rem;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    background:#1e40af;
+    transform:scale(1.03);
+}
+
+#msg{
+    margin-top:25px;
+    width:100%;
+    max-width:700px;
+    text-align:center;
+    font-size:1.2rem;
+    line-height:1.7;
+    color:#111827;
+    word-wrap:break-word;
+}
+
+/* Tablets */
+@media (max-width:768px){
+
+    h1{
+        font-size:1.7rem;
+    }
+
+    .fc{
+        max-width:400px;
+        padding:28px;
+    }
+
+    input[type="number"],
+    .btn{
+        font-size:1rem;
+        padding:12px;
+    }
+
+    #msg{
+        font-size:1.1rem;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width:480px){
+
+    body{
+        padding:15px;
+    }
+
+    h1{
+        font-size:1.5rem;
+        margin-bottom:20px;
+    }
+
+    .fc{
+        width:100%;
+        padding:22px 18px;
+        border-radius:15px;
+    }
+
+    input[type="number"],
+    .btn{
+        font-size:0.95rem;
+        padding:11px;
+    }
+
+    #msg{
+        font-size:1rem;
+        margin-top:20px;
+    }
+}
+		</style>
+	</head>
+
+<body>
+	<h1>Body-Mass-Index Calculator</h1>
+	<div class="fc">
+	<form onSubmit="calculate()">
+		<input type="number" step="any" id="w" min="1"
+		placeholder="Enter Weight (kg)"/>
+		<br/><br/>
+
+		<input type="number" step="any" id="h" min="1"
+		placeholder="Enter Height (cm)"/>
+		<br/><br/>
+
+		<input type="submit" class="btn "value="Calculate"/>
+	</form>
+	</div>
+		<h2 id="msg"></h2>
+
+<script>
+
+	function calculate()
+	{
+		event.preventDefault();
+		let w = document.getElementById("w");
+		let h = document.getElementById("h");
+		let msg = document.getElementById("msg");
+
+		if(w.value==="")
+		{
+			alert("Please Enter Weight");
+			msg.innerHTML="";
+			w.focus();
+			return;
+		}
+
+		if(h.value==="")
+		{
+			alert("Please Enter Height");
+			msg.innerHTML="";
+			h.focus();
+			return;
+		}
+		
+		let wt = parseFloat(w.value);
+		let ht = parseFloat(h.value);
+		ht=ht/100;
+
+		let bmi = wt/(ht*ht);
+		let cat =""
+		let color=""
+		if(bmi<18.5){
+			cat="UnderWeight";
+			color="lightcoral";
+		}
+		else if(bmi>=18.5 && bmi<=22.9){
+			cat="Normal";
+			color="gold";
+		}
+		else if(bmi>=23 && bmi<=24.9){
+			cat="OverWeight";
+			color="red";
+		}
+		else{
+			cat="Obese";
+			color="purple";
+		}
+		
+		msg.innerHTML = "BMI for weight : " + wt + " & height : "+ht+" is <span style='color:green'>" + bmi.toFixed(2) + "</span> <br/> BMI Categary(as per Indian standards) : <span style='color:"+color+"'> "+cat+"</span>";
+	}
+</script>
+</body>
+</html>
