@@ -1,213 +1,233 @@
+
 <html>
-	<head>
-		<title>BMI Calculator</title>
-		
-		<style>
-			*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Cambria, serif;
+<title>BMI Calculator</title>
+<style>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, serif;
 }
 
-body{
-    background:linear-gradient(135deg,#dbeafe,#eff6ff,#e0f2fe);
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+body {
+    background: linear-gradient(135deg, #dbeafe, #eff6ff, #e0f2fe);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-h1{
-    font-size:2rem;
-    color:#1d4ed8;
-    margin-bottom:25px;
-    text-align:center;
-    text-shadow:2px 2px 8px rgba(0,0,0,0.15);
+h1 {
+    color: #1d4ed8;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.fc{
-    width:100%;
-    max-width:450px;
-    background:#fff;
-    padding:35px 30px;
-    border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.15);
-    transition:0.3s;
+.card {
+    background-color: white;
+    width: 100%;
+    max-width: 460px;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-.fc:hover{
-    transform:translateY(-5px);
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 18px;
 }
 
-input[type="number"]{
-    width:100%;
-    padding:14px;
-    font-size:1.1rem;
-    border:2px solid #cbd5e1;
-    border-radius:10px;
-    outline:none;
-    transition:0.3s;
+input:focus {
+    outline: none;
+    border-color: #2563eb;
 }
 
-input[type="number"]:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 10px rgba(37,99,235,0.3);
+.btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.btn{
-    width:100%;
-    padding:14px;
-    font-size:1.1rem;
-    background:#2563eb;
-    color:white;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    transition:0.3s;
+button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
 }
 
-.btn:hover{
-    background:#1e40af;
-    transform:scale(1.03);
+.calc {
+    background-color: #2563eb;
+    color: white;
 }
 
-#msg{
-    margin-top:25px;
-    width:100%;
-    max-width:700px;
-    text-align:center;
-    font-size:1.2rem;
-    line-height:1.7;
-    color:#111827;
-    word-wrap:break-word;
+.calc:hover {
+    background-color: #1d4ed8;
 }
 
-/* Tablets */
-@media (max-width:768px){
+.reset {
+    background-color: #ef4444;
+    color: white;
+}
 
-    h1{
-        font-size:1.7rem;
+.reset:hover {
+    background-color: #b91c1c;
+}
+
+#msg {
+    margin-top: 20px;
+    line-height: 1.7;
+    font-size: 18px;
+}
+
+table {
+    margin-top: 25px;
+    width: 100%;
+    max-width: 460px;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #2563eb;
+    color: white;
+}
+
+footer {
+    margin-top: 20px;
+    color: #555;
+}
+
+@media (max-width: 480px) {
+
+    .btns {
+        flex-direction: column;
     }
 
-    .fc{
-        max-width:400px;
-        padding:28px;
-    }
-
-    input[type="number"],
-    .btn{
-        font-size:1rem;
-        padding:12px;
-    }
-
-    #msg{
-        font-size:1.1rem;
-    }
 }
-
-/* Mobile Phones */
-@media (max-width:480px){
-
-    body{
-        padding:15px;
-    }
-
-    h1{
-        font-size:1.5rem;
-        margin-bottom:20px;
-    }
-
-    .fc{
-        width:100%;
-        padding:22px 18px;
-        border-radius:15px;
-    }
-
-    input[type="number"],
-    .btn{
-        font-size:0.95rem;
-        padding:11px;
-    }
-
-    #msg{
-        font-size:1rem;
-        margin-top:20px;
-    }
-}
-		</style>
-	</head>
-
+</style>
+</head>
 <body>
-	<h1>Body-Mass-Index Calculator</h1>
-	<div class="fc">
-	<form onSubmit="calculate()">
-		<input type="number" step="any" id="w" min="1"
-		placeholder="Enter Weight (kg)"/>
-		<br/><br/>
+<h1>Body Mass Index Calculator</h1>
 
-		<input type="number" step="any" id="h" min="1"
-		placeholder="Enter Height (cm)"/>
-		<br/><br/>
+<div class="card">
+<form onsubmit="calculate(event)">
+<input type="number" id="w" min="10" max="300" step="any" placeholder="Enter Weight (kg)">
+<input type="number" id="h" min="50" max="250" step="any" placeholder="Enter Height (cm)">
+<div class="btns">
+<button class="calc" type="submit">Calculate</button>
+<button class="reset" type="button" onclick="resetData()">Reset</button>
+</div>
+</form>
+<div id="msg"></div>
+</div>
 
-		<input type="submit" class="btn "value="Calculate"/>
-	</form>
-	</div>
-		<h2 id="msg"></h2>
+
+<footer>Developed by Sakshi Ghosalkar</footer>
 
 <script>
+// Function to calculate BMI
+function calculate(event) {
 
-	function calculate()
-	{
-		event.preventDefault();
-		let w = document.getElementById("w");
-		let h = document.getElementById("h");
-		let msg = document.getElementById("msg");
+    // Prevent page refresh
+    event.preventDefault();
 
-		if(w.value==="")
-		{
-			alert("Please Enter Weight");
-			msg.innerHTML="";
-			w.focus();
-			return;
-		}
+    // Get input fields
+    let weight = document.getElementById("w");
+    let height = document.getElementById("h");
+    let result = document.getElementById("msg");
 
-		if(h.value==="")
-		{
-			alert("Please Enter Height");
-			msg.innerHTML="";
-			h.focus();
-			return;
-		}
-		
-		let wt = parseFloat(w.value);
-		let ht = parseFloat(h.value);
-		ht=ht/100;
+    // Validate empty fields
+    if (weight.value == "") {
+        alert("Please enter your weight.");
+        weight.focus();
+        return;
+    }
 
-		let bmi = wt/(ht*ht);
-		let cat =""
-		let color=""
-		if(bmi<18.5){
-			cat="UnderWeight";
-			color="lightcoral";
-		}
-		else if(bmi>=18.5 && bmi<=22.9){
-			cat="Normal";
-			color="gold";
-		}
-		else if(bmi>=23 && bmi<=24.9){
-			cat="OverWeight";
-			color="red";
-		}
-		else{
-			cat="Obese";
-			color="purple";
-		}
-		
-		msg.innerHTML = "BMI for weight : " + wt + " & height : "+ht+" is <span style='color:green'>" + bmi.toFixed(2) + "</span> <br/> BMI Categary(as per Indian standards) : <span style='color:"+color+"'> "+cat+"</span>";
-	}
+    if (height.value == "") {
+        alert("Please enter your height.");
+        height.focus();
+        return;
+    }
+
+    // Convert input values to numbers
+    let wt = parseFloat(weight.value);
+    let hcm = parseFloat(height.value);
+
+    // Validate ranges
+    if (wt < 10 || wt > 300) {
+        alert("Weight should be between 10 and 300 kg.");
+        weight.focus();
+        return;
+    }
+
+    if (hcm < 50 || hcm > 250) {
+        alert("Height should be between 50 and 250 cm.");
+        height.focus();
+        return;
+    }
+
+    // Calculate BMI
+    let heightInMeters = hcm / 100;
+    let bmi = wt / (heightInMeters * heightInMeters);
+
+    let category = "";
+    let color = "";
+
+    // BMI categories (Indian Standards)
+    if (bmi < 18.5) {
+        category = "Underweight";
+        color = "#dc2626";
+    }
+    else if (bmi <= 22.9) {
+        category = "Normal";
+        color = "#16a34a";
+    }
+    else if (bmi <= 24.9) {
+        category = "Overweight";
+        color = "#ea580c";
+    }
+    else {
+        category = "Obese";
+        color = "#7e22ce";
+    }
+
+    // Display result
+    let output = "";
+
+    output += "<h3>Result</h3>";
+    output += "<b>Weight:</b> " + wt + " kg<br>";
+    output += "<b>Height:</b> " + hcm + " cm<br>";
+    output += "<b>BMI:</b> <span style='color:#2563eb'>" + bmi.toFixed(2) + "</span><br>";
+    output += "<b>Category (Indian Standards):</b> ";
+    output += "<span style='color:" + color + "'>" + category + "</span>";
+
+    result.innerHTML = output;
+}
+
+// Function to clear the form
+function resetData() {
+
+    document.getElementById("w").value = "";
+    document.getElementById("h").value = "";
+    document.getElementById("msg").innerHTML = "";
+
+    document.getElementById("w").focus();
+}
 </script>
 </body>
 </html>
